@@ -1,0 +1,478 @@
+.report-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8fafc;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.report-card {
+  width: 100%;
+  max-width: 450px;
+  background: white;
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.report-card.info-open {
+  max-width: 850px; /* Expand only when info is active */
+}
+
+/* Progress Bar */
+/* Progress Bar */
+.progress-bar-report {
+  display: flex;
+  height: 6px;
+  overflow: hidden;
+  gap: 0;
+  margin-bottom: 30px;
+  background: #e2e8f0;
+  border-radius: 10px; /* Ensures the overall bar has rounded ends */
+}
+
+.progress-step {
+  height: 100%;
+  flex: 1;
+  background: #e2e8f0;
+  border-radius: 0; /* Remove rounding from individual segments */
+  transition: background 0.3s ease;
+}
+
+.progress-step:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.progress-step:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+.progress-step.active {
+  background: #2563eb;
+}
+
+/* Step Layout */
+.step-container h2 {
+  font-size: 22px;
+  color: #1e293b;
+  margin-bottom: 5px;
+}
+.step-container p {
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+/* Big Visual Photo Upload */
+.huge-upload-area {
+  width: 100%;
+  height: 200px;
+  background: #f1f5f9;
+  border: 3px dashed #cbd5e1;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.3s;
+}
+.huge-upload-area:hover { border-color: #2563eb; }
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #64748b;
+  font-weight: 600;
+}
+.img-filled { width: 100%; height: 100%; object-fit: cover; }
+
+/* Visual Grid for Waste Type */
+.waste-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+.waste-card {
+  padding: 20px;
+  background: #fff;
+  border: 2px solid #f1f5f9;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  position: relative;
+}
+
+.card-selection-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #2563eb;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: 0.3s;
+}
+
+.waste-card.selected {
+  border-color: #2563eb;
+  background: #eff6ff;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.1);
+}
+
+.waste-card.selected .card-selection-indicator {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Step 2 Layout */
+.step-two-layout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  min-height: 320px;
+}
+
+.waste-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  flex: 1;
+}
+
+/* Info Panel Styling */
+.waste-info-panel {
+  flex: 1;
+  background: #f8fafc;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.panel-placeholder {
+  opacity: 0.7;
+  border-style: dashed;
+  background: #f1f5f9;
+}
+
+.panel-empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.empty-icon {
+  margin-bottom: 15px;
+  opacity: 0.5;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.panel-header {
+  padding: 16px 20px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2563eb;
+}
+
+.header-left h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.close-panel {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  transition: 0.2s;
+}
+.close-panel:hover { background: #f1f5f9; color: #1e293b; }
+
+.panel-body {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.type-desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #475569;
+  margin-bottom: 20px !important;
+}
+
+.items-section {
+  margin-bottom: 15px;
+}
+
+.items-section h4 {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #059669; /* Green for What goes here */
+}
+
+.items-section.avoid h4 {
+  color: #dc2626; /* Red for Avoid */
+}
+
+.items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.items-list li {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #334155;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .report-card.info-open {
+    max-width: 450px;
+  }
+
+  .step-two-layout {
+    flex-direction: column;
+  }
+
+  .waste-info-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    border-radius: 24px 24px 0 0;
+    z-index: 2005;
+    box-shadow: 0 -10px 25px rgba(0,0,0,0.1);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: none; /* Disable side slide on mobile */
+  }
+
+  .waste-info-panel.panel-active {
+    transform: translateY(0);
+  }
+
+  /* Overlay behind bottom drawer on mobile */
+  .info-open::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 2004;
+    animation: fadeIn 0.3s ease;
+  }
+}
+.text-input, textarea {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 16px;
+}
+
+.btn-location {
+  width: 100%;
+  padding: 15px;
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;   /* 🔥 ADD THIS */
+  gap: 10px;
+  cursor: pointer;
+}
+
+.nav-btns {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.btn-next, .btn-submit {
+  flex: 2;
+  padding: 15px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.btn-back {
+  flex: 1;
+  padding: 15px;              /* same as next button */
+  background: #f1f5f9;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  display: flex;              /* add this */
+  justify-content: center;    /* add this */
+  align-items: center;        /* add this */
+  gap: 8px;                   /* icon spacing */
+  cursor: pointer;
+}
+
+/* Animations */
+.animate-in {
+  animation: fadeIn 0.4s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.success-step {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.upload-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.upload-popup {
+  background: white;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.upload-popup button {
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background: #2563eb;
+  color: white;
+}
+
+.upload-popup .cancel-btn {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+/* Toast Notification Styles */
+.report-toast {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  background: white;
+  border-radius: 50px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  animation: toastIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+  font-size: 15px;
+  border-left: 5px solid transparent;
+}
+
+.toast-success {
+  border-left-color: #10b981;
+  color: #065f46;
+}
+
+.toast-error {
+  border-left-color: #ef4444;
+  color: #991b1b;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Mobile adjustments for Toast */
+@media (max-width: 480px) {
+  .report-toast {
+    width: 90%;
+    top: 20px;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+

@@ -1,0 +1,104 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "./AddCollector.css";
+import API from "../../api/api";
+function AddCollector() {
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    area: "",
+    status: "Available",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    let newErrors = {};
+
+    if (!form.name) newErrors.name = "Name is required";
+    if (!form.phone) newErrors.phone = "Phone is required";
+    if (!form.area) newErrors.area = "Area is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await API.post("/collectors", form);
+
+      toast.success("Collector added successfully");
+
+      navigate("/admin/collectors");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+
+  return (
+    <div className="admin-page-wrapper">
+      <header className="admin-page-header">
+        <div className="admin-page-title-group">
+          <h1 className="admin-page-title">Add New Collector</h1>
+        </div>
+      </header>
+
+      <div className="add-collector-card" style={{ margin: '0 auto' }}>
+
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Collector Name"
+            value={form.name}
+            onChange={(e) =>
+              setForm({ ...form, name: e.target.value })
+            }
+          />
+          {errors.name && <span className="error">{errors.name}</span>}
+
+          <input
+            type="text"
+            placeholder="Phone Number"
+            value={form.phone}
+            onChange={(e) =>
+              setForm({ ...form, phone: e.target.value })
+            }
+          />
+          {errors.phone && <span className="error">{errors.phone}</span>}
+
+          <input
+            type="text"
+            placeholder="Area Assigned"
+            value={form.area}
+            onChange={(e) =>
+              setForm({ ...form, area: e.target.value })
+            }
+          />
+          {errors.area && <span className="error">{errors.area}</span>}
+
+          <select
+            value={form.status}
+            onChange={(e) =>
+              setForm({ ...form, status: e.target.value })
+            }
+          >
+            <option value="Available">Available</option>
+            <option value="Busy">Busy</option>
+          </select>
+
+          <button type="submit">Add Collector</button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default AddCollector;

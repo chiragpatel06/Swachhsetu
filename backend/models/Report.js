@@ -1,0 +1,48 @@
+import mongoose from "mongoose";
+
+const reportSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+    wasteType: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: false,
+    },
+    photo: {
+      type: String, // store image URL
+    },
+    cleanedPhoto: {
+      type: String
+    },
+    status: {
+      type: String,
+      default: "Pending",
+    },
+    collector: {
+      type: String,
+      default: "",
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true
+    },
+  },
+  { timestamps: true }
+);
+
+export default mongoose.model("Report", reportSchema);
