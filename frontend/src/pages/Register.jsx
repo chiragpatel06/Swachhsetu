@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import API from "../api/api";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
@@ -67,8 +67,8 @@ function Register() {
     try {
       setLoading(true);
 
-      const res = await axios.post(
-        "https://swachhsetu-6mkm.onrender.com/api/users/register",
+      const res = await API.post(
+        "/users/register",
         {
           name: form.name,
           email: form.email,

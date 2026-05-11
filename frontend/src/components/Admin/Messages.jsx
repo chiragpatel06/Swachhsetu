@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../../api/api";
 import { Mail, CheckCircle, Search, User, Calendar, Trash2, X, MessageSquare, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
@@ -26,7 +26,7 @@ function Messages() {
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get("https://swachhsetu-6mkm.onrender.com/api/messages");
+      const response = await API.get("/messages");
       if (response.data.success) {
         setMessages(response.data.data.reverse()); // latest first
       }
@@ -48,7 +48,7 @@ function Messages() {
     // Mark as read if it's unread
     if (msg.status === "unread") {
       try {
-        await axios.put(`https://swachhsetu-6mkm.onrender.com/api/messages/${msg._id}/status`, { status: "read" });
+        await API.put(`/messages/${msg._id}/status`, { status: "read" });
         setMessages((prev) => prev.map((m) => (m._id === msg._id ? { ...m, status: "read" } : m)));
         setSelectedMsg((prev) => ({ ...prev, status: "read" }));
       } catch (e) {
@@ -66,7 +66,7 @@ function Messages() {
     if (!replyText.trim()) return;
     
     try {
-      const response = await axios.put(`https://swachhsetu-6mkm.onrender.com/api/messages/${selectedMsg._id}/reply`, {
+      const response = await API.put(`/messages/${selectedMsg._id}/reply`, {
         reply: replyText,
       });
 
@@ -107,7 +107,7 @@ function Messages() {
       // Try hitting delete if the endpoint exists. Even if it fails (not defined in backend), 
       // we remove it from UI locally to maintain the visual consistency as requested.
       try {
-        await axios.delete(`https://swachhsetu-6mkm.onrender.com/api/messages/${id}`);
+        await API.delete(`/messages/${id}`);
       } catch (er) {
         console.log("Deleted locally.");
       }
