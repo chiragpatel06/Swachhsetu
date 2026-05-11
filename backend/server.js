@@ -14,33 +14,18 @@ dotenv.config();
 connectDB();
 
 const app = express();
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174",
-  "https://swachhsetu.vercel.app"
-];
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-
-      // allow requests with no origin
-      if (!origin) return callback(null, true);
-
-      // allow localhost + main vercel domain
-      if (
-        allowedOrigins.includes(origin) ||
-        origin.includes("vercel.app")
-      ) {
-        return callback(null, true);
-      }
-
-      return callback(new Error("CORS not allowed"));
-    },
-
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://swachhsetu-77jobu3fa-chiragpatel06s-projects.vercel.app",
+      "https://swachhsetu.vercel.app"
+    ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 

@@ -44,7 +44,7 @@ function Messages() {
   const openModal = async (msg) => {
     setSelectedMsg(msg);
     setReplyText(msg.reply || "");
-    
+
     // Mark as read if it's unread
     if (msg.status === "unread") {
       try {
@@ -64,7 +64,7 @@ function Messages() {
 
   const submitReply = async () => {
     if (!replyText.trim()) return;
-    
+
     try {
       const response = await API.put(`/messages/${selectedMsg._id}/reply`, {
         reply: replyText,
@@ -86,7 +86,7 @@ function Messages() {
 
   const deleteMessageLocal = async (id, e) => {
     e.stopPropagation();
-    
+
     const result = await Swal.fire({
       title: "Are you sure you want to delete this query?",
       icon: "warning",
@@ -96,10 +96,10 @@ function Messages() {
       confirmButtonText: "Confirm",
       cancelButtonText: "Cancel",
       customClass: {
-          popup: "admin-swal-popup",
-          title: "admin-swal-title",
-          actions: "admin-swal-actions",
-          confirmButton: "admin-swal-confirm-btn"
+        popup: "admin-swal-popup",
+        title: "admin-swal-title",
+        actions: "admin-swal-actions",
+        confirmButton: "admin-swal-confirm-btn"
       }
     });
 
@@ -123,12 +123,12 @@ function Messages() {
   };
 
   const filteredMessages = messages.filter((msg) => {
-    const matchesFilter = 
-      filter === "All" ? true : 
-      filter === "Pending" ? msg.status === "unread" :
-      filter === "Reviewed" ? msg.status === "read" :
-      filter === "Resolved" ? msg.status === "replied" : true;
-    
+    const matchesFilter =
+      filter === "All" ? true :
+        filter === "Pending" ? msg.status === "unread" :
+          filter === "Reviewed" ? msg.status === "read" :
+            filter === "Resolved" ? msg.status === "replied" : true;
+
     const term = searchQuery.toLowerCase();
     const matchesSearch = msg.name.toLowerCase().includes(term) || msg.email.toLowerCase().includes(term) || msg.message.toLowerCase().includes(term);
 
@@ -153,7 +153,7 @@ function Messages() {
   };
 
   if (loading) {
-    return <div style={{padding: '40px', background: 'white', minHeight: '100vh'}}>Loading customer queries...</div>;
+    return <div style={{ padding: '40px', background: 'white', minHeight: '100vh' }}>Loading customer queries...</div>;
   }
 
   return (
@@ -165,10 +165,10 @@ function Messages() {
 
       <div className="messages-controls">
         <div className="search-bar">
-          <Search size={18} color="#64748b"/>
-          <input 
-            type="text" 
-            placeholder="Search by name, email or subject..." 
+          <Search size={18} color="#64748b" />
+          <input
+            type="text"
+            placeholder="Search by name, email or subject..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -183,8 +183,8 @@ function Messages() {
             {dropdownOpen && (
               <div className="dropdown-menu">
                 {["All", "Pending", "Reviewed", "Resolved"].map(tab => (
-                  <div 
-                    key={tab} 
+                  <div
+                    key={tab}
                     className={`dropdown-option ${filter === tab ? 'active' : ''}`}
                     onClick={() => {
                       setFilter(tab);
@@ -200,8 +200,8 @@ function Messages() {
         ) : (
           <div className="status-filters">
             {["All", "Pending", "Reviewed", "Resolved"].map(tab => (
-              <button 
-                key={tab} 
+              <button
+                key={tab}
                 className={`filter-tab ${filter === tab ? 'active' : ''}`}
                 onClick={() => setFilter(tab)}
               >
@@ -214,7 +214,7 @@ function Messages() {
 
       <div className="messages-list">
         {filteredMessages.length === 0 ? (
-          <div style={{textAlign: 'center', padding: '40px', color: '#64748b'}}>No queries found.</div>
+          <div style={{ textAlign: 'center', padding: '40px', color: '#64748b' }}>No queries found.</div>
         ) : (
           currentMessages.map((msg) => (
             <div key={msg._id} className="query-row" onClick={() => openModal(msg)}>
@@ -228,7 +228,7 @@ function Messages() {
                 <div className="query-meta">
                   <span><User size={14} /> {msg.name}</span>
                   <span><Mail size={14} /> {msg.email}</span>
-                  <span><Calendar size={14} /> {new Date(msg.createdAt || Date.now()).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'})}</span>
+                  <span><Calendar size={14} /> {new Date(msg.createdAt || Date.now()).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                 </div>
               </div>
               <div className="query-actions">
@@ -295,7 +295,7 @@ function Messages() {
               <h3><MessageSquare size={18} /> Query & Response</h3>
               <button onClick={closeModal}><X size={20} /></button>
             </div>
-            
+
             <div className="modal-body">
               <h2 className="modal-user-name">{selectedMsg.name}</h2>
               <div className="modal-user-info">
@@ -322,7 +322,7 @@ function Messages() {
               ) : (
                 <>
                   <span className="modal-label">ADMIN SOLUTION / RESPONSE</span>
-                  <textarea 
+                  <textarea
                     className="modal-textarea"
                     placeholder="Type your response or solution here..."
                     value={replyText}
@@ -338,9 +338,9 @@ function Messages() {
                 <Mail size={16} /> Message on Email
               </button>
               {selectedMsg.status !== 'replied' && (
-                <button 
-                  className="btn-resolve" 
-                  onClick={submitReply} 
+                <button
+                  className="btn-resolve"
+                  onClick={submitReply}
                   disabled={!replyText.trim()}
                 >
                   Save & Resolve
