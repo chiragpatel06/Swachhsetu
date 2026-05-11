@@ -26,7 +26,7 @@ function Messages() {
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/messages");
+      const response = await axios.get("https://swachhsetu-6mkm.onrender.com/api/messages");
       if (response.data.success) {
         setMessages(response.data.data.reverse()); // latest first
       }
@@ -48,7 +48,7 @@ function Messages() {
     // Mark as read if it's unread
     if (msg.status === "unread") {
       try {
-        await axios.put(`http://localhost:5000/api/messages/${msg._id}/status`, { status: "read" });
+        await axios.put(`https://swachhsetu-6mkm.onrender.com/api/messages/${msg._id}/status`, { status: "read" });
         setMessages((prev) => prev.map((m) => (m._id === msg._id ? { ...m, status: "read" } : m)));
         setSelectedMsg((prev) => ({ ...prev, status: "read" }));
       } catch (e) {
@@ -66,7 +66,7 @@ function Messages() {
     if (!replyText.trim()) return;
     
     try {
-      const response = await axios.put(`http://localhost:5000/api/messages/${selectedMsg._id}/reply`, {
+      const response = await axios.put(`https://swachhsetu-6mkm.onrender.com/api/messages/${selectedMsg._id}/reply`, {
         reply: replyText,
       });
 
@@ -107,7 +107,7 @@ function Messages() {
       // Try hitting delete if the endpoint exists. Even if it fails (not defined in backend), 
       // we remove it from UI locally to maintain the visual consistency as requested.
       try {
-        await axios.delete(`http://localhost:5000/api/messages/${id}`);
+        await axios.delete(`https://swachhsetu-6mkm.onrender.com/api/messages/${id}`);
       } catch (er) {
         console.log("Deleted locally.");
       }

@@ -36,7 +36,7 @@ function LiveTracking() {
 
     if (path.startsWith("http")) return path;
 
-    return `http://localhost:5000/${path.replace(/^\/+/, "")}`;
+    return `https://swachhsetu-6mkm.onrender.com/${path.replace(/^\/+/, "")}`;
   };
 
 

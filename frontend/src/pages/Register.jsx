@@ -68,7 +68,7 @@ function Register() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/users/register",
+        "https://swachhsetu-6mkm.onrender.com/api/users/register",
         {
           name: form.name,
           email: form.email,
