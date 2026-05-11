@@ -6,7 +6,7 @@ import {
   Camera, Trash2, LayoutDashboard, Truck, Map, Lock, AlertCircle
 } from "lucide-react";
 import API from "../api/api";
-import "./profile.css";
+import "./Profile.css";
 
 const Profile = () => {
   const navigate = useNavigate();

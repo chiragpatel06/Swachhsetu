@@ -54,7 +54,7 @@
 /* HERO */
 .hero {
   position: relative;
-  background: url("./about-hero.jpg") center center / cover no-repeat;
+  background: url("/about-hero.jpg") center center / cover no-repeat;
   height: 520px;
   display: flex;
   align-items: center;

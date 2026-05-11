@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Phone, MapPin, ArrowLeft, Save, CheckCircle } from "lucide-react";
 import API from "../api/api";
-import "./profile.css";
+import "./Profile.css";
 
 const EditProfile = () => {
   const navigate = useNavigate();
